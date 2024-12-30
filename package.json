@@ -6,11 +6,29 @@
   "engines": {
     "vscode": "^1.87.0"
   },
+  "publisher": "XiLaiTL",
+  "author": {
+    "name": "XiLaiTL",
+    "url": "https://github.com/XiLaiTL"
+  },
+  "license":"MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/XiLaiTL/vscode-input-actions.git"
+  },
+  "activationEvents": [
+    "onLanguage"
+  ],
   "categories": [
     "Other"
   ],
-  "activationEvents": [
-    "onLanguage"
+  "keywords": [
+    "agda",
+    "input",
+    "custom",
+    "command",
+    "keyboard",
+    "binding"
   ],
   "main": "./dist/extension.js",
   "contributes": {
