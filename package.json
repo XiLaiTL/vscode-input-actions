@@ -2,7 +2,7 @@
   "name": "vscode-input-actions",
   "displayName": "Input Actions",
   "description": "Do actions when typing text! Support enter! Automatically loading in Agda is built-in.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "engines": {
     "vscode": "^1.87.0"
   },
