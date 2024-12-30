@@ -54,7 +54,7 @@ Run one more command.
   "command": "runCommands",
   "args": {
     "commands":[
-      "Command A Id"，
+      "Command A Id",
       {
         "command":"Command B Id",
         "args": {}
