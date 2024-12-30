@@ -1,4 +1,4 @@
-# vscode-input-actions Input Something then Automatically Do Anything
+# Input Something then Automatically Do Anything
 
 Input something in editor, then automatically do anything!
 
