@@ -1,0 +1,141 @@
+{
+  "name": "vscode-input-actions",
+  "displayName": "vscode-input-actions",
+  "description": "Do actions when typing text! Support enter! Automatically loading in Agda is built-in.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.87.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands":[
+      {
+        "command": "input-actions.create",
+        "title": "Create Input Action",
+        "icon":"$(tools)"
+      },
+      {
+        "command": "input-actions.encourage",
+        "title": "Encourage!",
+        "icon":"$(flame)"
+      }
+    ],
+    "configuration":{
+      "title": "Input Actions",
+      "properties": {
+        "input-actions.activate.languages":{
+          "type":"array",
+          "items": {
+            "type": "string"
+          },
+          "markdownDescription": "Languages the plugin support in language id format",
+          "default": [
+            "agda", "lagda-md", "lagda-rst", "lagda-tex"
+          ]
+        },
+        "input-actions.actions":{
+          "type":"array",
+          "markdownDescription": "Actions of input",
+          "default": [{"input":"\n","command":"agda-mode.load"}],
+          "items": {
+            "type": "object",
+            "properties": {
+              "input": {
+                "description": "One string for check input, or one regex object with \"regex\" and \"length\" as the properties. Also support a whole array of them. ",
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "#/definitions/RegexInput"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "oneOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "$ref": "#/definitions/RegexInput"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "command": {
+                "type": "string",
+                "description": "Identifier of the command to run when keybinding is triggered. If you want to run multiple commands, use command 'runCommands' to pass it multiple commands to run, and its \"args\" is {\"commands\":[]} "
+              },
+              "args": {
+                "description": "Arguments to pass to the command to execute."
+              },
+              "when": {
+                "type": "object",
+                "description": "Condition when the key is active. When undefined, activate anyway. Otherwise activated when editor open the matched language file",
+                "properties": {
+                  "languages": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "additionalProperties": false  
+              }
+            },
+            "required": ["input", "command"],
+            
+            "additionalProperties": false 
+          },
+          "definitions": {
+            "RegexInput": {
+              "type": "object",
+              "properties": {
+                "regex": {
+                  "type": "string"
+                },
+                "length": {
+                  "type": "number"
+                }
+              },
+              "required": ["regex", "length"]
+            }
+          }
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "pnpm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "pnpm run compile-tests && pnpm run compile && pnpm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.87.0",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "18.x",
+    "@typescript-eslint/eslint-plugin": "^6.13.1",
+    "@typescript-eslint/parser": "^6.13.1",
+    "eslint": "^8.54.0",
+    "typescript": "^5.3.2",
+    "ts-loader": "^9.5.1",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4",
+    "@vscode/test-cli": "^0.0.4",
+    "@vscode/test-electron": "^2.3.8"
+  }
+}
